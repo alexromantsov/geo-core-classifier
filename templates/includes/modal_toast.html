@@ -1,0 +1,43 @@
+<!-- modal_toast.html -->
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+  <!-- Позиционирование toast по центру header -->
+  <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%);">
+    <!-- Toast -->
+    <div class="toast" id="customToast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <!-- Header Content -->
+      </div>
+      <div class="toast-body" id="toast-message-content">
+        <!-- Сообщение будет сюда -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Модальное окно помощи -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Заголовок модального окна -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">Помощь</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- Тело модального окна -->
+      <div class="modal-body">
+        <h5>Инструкции по использованию модуля "Описание керна"</h5>
+        <p>Данный модуль позволяет анализировать текстовое описание керна для извлечения ключевой информации. Однако, важно учитывать следующие ограничения:</p>
+        <ul>
+          <li><strong>Ограничение на количество слов:</strong> Для пользователей без PRO версии модуля действует ограничение в 25 слов за один запрос.</li>
+          <li><strong>Языковые ограничения:</strong> Алгоритм обработки текста оптимизирован для работы с текстами на русском языке.</li>
+        </ul>
+        <p>Убедитесь, что ваше описание соответствует этим требованиям для оптимальной обработки и анализа данных.</p>
+      </div>
+      <!-- Подвал модального окна -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>

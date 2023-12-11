@@ -1,0 +1,31 @@
+<!-- tools/rock_sample/analysis_input.html -->
+<div class="col-md-6" data-core-analysis-url="{% url 'frontend:core_analysis' %}">
+  <div class="mb-3 position-relative">
+    <textarea class="form-control" id="core-description" rows="5"
+              placeholder="Введите описание керна здесь..."></textarea>
+
+      <!-- Значок подсказки -->
+    <i class="fas fa-question-circle position-absolute" style="top: 10px; right: 20px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#helpModal"></i>
+  </div>
+
+    <!-- Выпадающий список для выбора модели -->
+  <div class="mb-3 d-flex justify-content-between align-items-center">
+    <select class="form-select" id="model-selection" style="width: auto; min-width: 200px;">
+      <option value="" disabled selected hidden>Выберите модель обработки</option>
+      <option value="standard">Стандарт</option>
+      <option value="standard_plus">Стандарт+</option>
+      <!-- Дополнительные моковые данные -->
+    </select>
+    <button class="btn btn-outline-primary ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Доступно в PRO версии">Загрузить файл</button>
+
+  </div>
+    <div>
+        <button class="btn btn-primary w-100"
+                onclick="handleSubmit()"
+                {% if button_disabled %}disabled style="background-color: grey; border-color: grey;"{% endif %}>
+            {{ button_text }}
+        </button>
+    </div>
+</div>
+
+

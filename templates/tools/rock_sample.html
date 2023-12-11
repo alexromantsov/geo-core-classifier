@@ -1,0 +1,31 @@
+<!-- templates/tools/rock_sample.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ PROJECT_NAME.name }} - {{ ROCK_SAMPLE.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="container my-4">
+    <div class="text-center">
+      <!-- Логотип и Заголовок -->
+      <img src="{% static 'img/rock_sample_logo.png' %}" alt="{{ ROCK_SAMPLE.name }}" class="mb-3" style="width: 150px; height: 150px;">
+      <h1 class="mb-4">{{ ROCK_SAMPLE.name }}</h1>
+
+      <!-- Карточка с описанием -->
+      <div class="card-body">
+        <p class="lead small-lead">
+          Модуль <strong>{{ ROCK_SAMPLE.name }}</strong> специализируется на обработке и анализе керна, извлекая ключевую информацию из классического описания. <br>
+          Инструмент помогает геологам и инженерам более эффективно интерпретировать данные, повышая точность и ценность геологических исследований.
+        </p>
+      </div>
+    </div>
+
+    <!-- Блоки для анализа и результатов -->
+    <div class="row mt-4">
+      {% include "tools/rock_sample/analysis_input.html" %}
+      {% include "tools/rock_sample/analysis_results.html" %}
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,52 @@
+/* static/css/styles.css */
+
+/* Отображение хедера и футера */
+.main {
+  min-height: calc(100vh - 230px); /* 230px - высота хедера и футера в сумме */
+}
+
+/* Настройка для активных кнопок */
+.nav-pills .nav-link.active {
+  background-color: #3d69f8;
+  /* Дополнительные стили  */
+}
+
+/* Настройка для неактивных кнопок */
+.nav-pills .nav-link:not(.active) {
+  color: #000;
+  /* Дополнительные стили */
+}
+
+.card {
+  border: none; /* Удаление обводки */
+}
+
+
+/* Выровнить текст по ширине блока */
+.text-justify {
+  text-align: justify;
+}
+
+
+/* Чтоб текст который является гиперссылкой не менял свой стиль */
+.card-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.card-link:hover {
+    text-decoration: none;
+    color: inherit;
+}
+
+.blurred {
+  filter: blur(2px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.unavailable {
+  opacity: 0.5; /* Делаем блок полупрозрачным */
+  pointer-events: none; /* Отключаем возможность взаимодействия */
+  user-select: none; /* Предотвращаем выделение текста */
+}

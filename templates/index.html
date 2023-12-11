@@ -1,0 +1,27 @@
+<!-- templates/index.html -->
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ PROJECT_NAME.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="container text-center my-5">
+    <!-- Логотип -->
+    <img src="{% static 'img/logo_geo_core_classifier.png' %}" alt="GeoCoreClassifier Logo" class="mb-4" style="width: 150px; height: 150px;">
+
+    <!-- Описание проекта -->
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <h1 class="mb-3">{{ PROJECT_NAME.name }}</h1>
+        <p class="lead">
+          {{ INDEX_HTML.name }}
+        </p>
+        <p>
+          {{ INDEX_HTML.description }}
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,37 @@
+/* static/css/custom.css */
+
+.card-text {
+    display: none;
+}
+
+.small-lead {
+    font-size: 16px;
+}
+
+#message-container {
+  padding: 10px;
+  margin-top: 10px;
+  border: 1px solid #ddd;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.message-success {
+  color: green;
+}
+
+.message-error {
+  color: red;
+}
+
+
+.toast-header {
+    min-width: 200px; /* Пример минимальной ширины */
+    min-height: 30px; /* Пример минимальной высоты */
+  }
+
+.toast-body {
+    min-width: 200px; /* Пример минимальной ширины */
+    min-height: 50px; /* Пример минимальной высоты */
+  }
