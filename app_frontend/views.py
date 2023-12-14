@@ -50,7 +50,14 @@ def core_analysis(request):
         return JsonResponse(result)
     except (ValueError, LookupError) as exc:
         return JsonResponse(
-            {"code": "501", "message": str(exc), "details": ""},
+            data={
+                "code": "501",
+                "message": str(exc),
+                "details": "",
+                "data": {
+                    "response_data": {}
+                }
+            },
             status=HTTPStatus.INTERNAL_SERVER_ERROR,
         )
     except Exception as exc:
