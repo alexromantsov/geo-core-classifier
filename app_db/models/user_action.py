@@ -1,6 +1,8 @@
+# app_db/models/user_action.py
 from django.db import models
 
 from server import settings
+from server.settings import USER_UNDEFINED
 
 
 class UserAction(models.Model):
@@ -22,7 +24,7 @@ class UserAction(models.Model):
     group = models.CharField(
         max_length=50,
         choices=settings.USER_GROUPS,
-        default='undefined',  # По умолчанию - Неопределенный пользователь
+        default=USER_UNDEFINED,  # По умолчанию - Неопределенный пользователь
         verbose_name="Группа"
     )
     available_requests = models.IntegerField(
@@ -37,7 +39,7 @@ class UserAction(models.Model):
     )
     action_time = models.DateTimeField(
         auto_now_add=True,
-        verbose_name="Время действия"
+        verbose_name="Время создания"
     )
 
     def __str__(self):
