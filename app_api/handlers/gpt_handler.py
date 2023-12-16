@@ -111,9 +111,9 @@ class GptHandler:
 
         response = await asyncio.to_thread(
             self.client.chat.completions.create,
-            model="gpt-3.5-turbo-1106",
-            temperature=0.2,
-            response_format={"type": "json_object"},
+            model=self.gpt_model,
+            temperature=self.gpt_temperature,
+            response_format=self.gpt_response_format,
             messages=messages
         )
         return response.choices[0].message.content
