@@ -1,0 +1,32 @@
+<!-- templates/tools/rock_sample.html -->
+{% extends "en/base.html" %}
+{% load static %}
+
+{% block title %}
+  {{ PROJECT_NAME.name }} - {{ ROCK_SAMPLE.name }}
+{% endblock %}
+
+{% block content %}
+  <div class="container my-4">
+    <div class="text-center">
+      <!-- Логотип и Заголовок -->
+      <img src="{% static 'img/rock_sample_logo.png' %}" alt="{{ ROCK_SAMPLE.name }}" class="mb-3" style="width: 150px; height: 150px;">
+      <h1 class="mb-4">{{ ROCK_SAMPLE.name }}</h1>
+
+      <!-- Карточка с описанием -->
+    <div class="card-body">
+      <p class="lead small-lead">
+        The <strong>{{ ROCK_SAMPLE.name }}</strong> module specializes in processing and analyzing core samples, extracting key information from classic descriptions. <br>
+        The tool helps geologists and engineers interpret data more effectively, enhancing the accuracy and value of geological research.
+      </p>
+    </div>
+    </div>
+
+
+    <!-- Блоки для анализа и результатов -->
+    <div class="row mt-4">
+      {% include "en/tools/rock_sample/analysis_input.html" %}
+      {% include "en/tools/rock_sample/analysis_results.html" %}
+    </div>
+  </div>
+{% endblock %}

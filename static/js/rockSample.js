@@ -5,12 +5,12 @@ import { showToast } from './showToast.js';
 function updateButton(availableRequests) {
   const button = document.querySelector('.btn-primary.w-100');
   if (availableRequests > 0) {
-    button.textContent = `Осталось запросов: ${availableRequests}`;
+    button.textContent = `Remaining requests: ${availableRequests}`;
     button.disabled = false;
-    button.style.backgroundColor = ''; // Вернуть оригинальный цвет
+    button.style.backgroundColor = ''; // Return to original color
     button.style.borderColor = '';
   } else {
-    button.textContent = 'Израсходован дневной лимит запросов';
+    button.textContent = 'Daily request limit exhausted';
     button.disabled = true;
     button.style.backgroundColor = 'grey';
     button.style.borderColor = 'grey';
@@ -24,21 +24,21 @@ function updateAnalysisResults(data) {
   if (!resultsContainer || !cardElement) return;
 
   let resultsHtml = '';
-  const data_info = data
+  const data_info = data;
   const responseData = data_info.data.response_data;
 
   if (responseData) {
     if (responseData.lithotype) {
-      resultsHtml += `<p>Литотип: ${responseData.lithotype}</p>`;
+      resultsHtml += `<p>Lithotype: ${responseData.lithotype}</p>`;
     }
     if (responseData.color) {
-      resultsHtml += `<p>Цвет: ${responseData.color.join('; ')}</p>`;
+      resultsHtml += `<p>Color: ${responseData.color.join('; ')}</p>`;
     }
     if (responseData.structure) {
-      resultsHtml += `<p>Структура: ${responseData.structure.join('; ')}</p>`;
+      resultsHtml += `<p>Structure: ${responseData.structure.join('; ')}</p>`;
     }
     if (responseData.features) {
-      resultsHtml += `<p>Особенности: ${responseData.features.join('; ')}</p>`;
+      resultsHtml += `<p>Features: ${responseData.features.join('; ')}</p>`;
     }
   }
 
@@ -57,23 +57,23 @@ function handleSubmit() {
   var description = document.getElementById('core-description').value;
   var model = document.getElementById('model-selection').value;
 
-    // Индикация загрузки
+    // Loading indication
     const resultsContainer = document.querySelector('.results-content');
     if (resultsContainer) {
-      resultsContainer.innerHTML = '<p class="loading-text">Загрузка<span class="loading-dots"></span></p>';
+      resultsContainer.innerHTML = '<p class="loading-text">Loading<span class="loading-dots"></span></p>';
       let dotCount = 0;
 
       const loadingInterval = setInterval(() => {
-        dotCount = (dotCount + 1) % 4;  // Циклически увеличиваем количество точек от 0 до 3
+        dotCount = (dotCount + 1) % 4;  // Cyclically increase the number of dots from 0 to 3
         document.querySelector('.loading-dots').textContent = '.'.repeat(dotCount);
-      }, 500);  // Обновляем каждые 500 мс
+      }, 500);  // Update every 500 ms
 
-      // Сохраняем интервал в элементе, чтобы можно было его остановить позже
+      // Store the interval in the element for later stopping
       resultsContainer.loadingInterval = loadingInterval;
     }
 
 
-  // Получаем URL из data атрибута
+  // Get the URL from the data attribute
   var analysisUrl = document.querySelector('.col-md-6').getAttribute('data-core-analysis-url');
 
   fetch(analysisUrl, {
@@ -86,10 +86,10 @@ function handleSubmit() {
   .then(response => response.json())
     .then(data => {
       let messageType;
-      let delayDuration = data.code == 200 ? 3500 : 0; // 3.5 секунды для успеха, 2.5 секунды для ошибки
+      let delayDuration = data.code == 200 ? 3500 : 0; // 3.5 seconds for success, 2.5 seconds for error
 
       setTimeout(() => {
-          // Остановка анимации загрузки
+          // Stop loading animation
         if (resultsContainer && resultsContainer.loadingInterval) {
           clearInterval(resultsContainer.loadingInterval);
         }
@@ -98,17 +98,17 @@ function handleSubmit() {
         } else if (data.code == 200) {
           messageType = 'success';
           updateButton(data.data.available_requests);
-          updateAnalysisResults(data); // Обновляем результаты анализа
+          updateAnalysisResults(data); // Update analysis results
         } else {
           messageType = 'warning';
-          updateAnalysisResults(data); // Обновляем результаты анализа
+          updateAnalysisResults(data); // Update analysis results
         }
         showToast(data.message, messageType);
       }, delayDuration);
     })
   .catch((error) => {
     console.error('Error:', error);
-    showToast("Ошибка запроса", 'error'); // для уведомлений об ошибках
+    showToast("Request error", 'error'); // for error notifications
   });
 }
 
@@ -116,9 +116,9 @@ document.getElementById("random-description-btn").addEventListener("click", func
   const containerDiv = document.querySelector('div[data-random-description-url]');
   const randomDescriptionUrl = containerDiv.getAttribute('data-random-description-url');
 
-  // Пример: установка желаемого языка
+  // Example: setting desired language
   const languageData = {
-    language: 'ru' // или любой другой язык по вашему выбору
+    language: 'en' // or any other language of your choice
   };
 
   fetch(randomDescriptionUrl, {
@@ -132,14 +132,14 @@ document.getElementById("random-description-btn").addEventListener("click", func
     if (response.ok) {
       return response.json();
     } else {
-      throw new Error('Не удалось получить описание');
+      throw new Error('Failed to retrieve description');
     }
   })
   .then(data => {
     document.getElementById("core-description").value = data.description;
   })
   .catch(error => {
-    console.error('Ошибка:', error);
+    console.error('Error:', error);
   });
 });
 
@@ -151,5 +151,5 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
-// Делаем handleSubmit глобально доступной
+// Make handleSubmit globally available
 window.handleSubmit = handleSubmit;

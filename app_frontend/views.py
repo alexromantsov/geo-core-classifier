@@ -13,7 +13,7 @@ from server.settings import USER_UNDEFINED
 
 
 def index(request):
-    template = 'index.html'
+    template = 'en/index.html'
     context = {
     }
     return render(request, template, context)
@@ -24,10 +24,10 @@ def rock_sample(request):
 
     # Определяем текст для кнопки и её статус
     if analysis.available_requests > 0:
-        button_text = f"Осталось запросов: {analysis.available_requests}"
+        button_text = f"Remaining requests: {analysis.available_requests}"
         button_disabled = False
     else:
-        button_text = "Израсходован дневной лимит запросов"
+        button_text = "Daily request limit exhausted"
         button_disabled = True
 
     # Подготовка контекста для шаблона
@@ -37,7 +37,7 @@ def rock_sample(request):
         'button_disabled': button_disabled,
     }
 
-    template = 'tools/rock_sample.html'
+    template = 'en/tools/rock_sample.html'
     return render(request, template, context)
 
 

@@ -1,0 +1,44 @@
+<!-- modal_toast.html -->
+<div aria-live="polite" aria-atomic="true" style="position: relative;">
+  <!-- Позиционирование toast по центру header -->
+  <div style="position: absolute; top: 20px; left: 50%; transform: translateX(-50%);">
+    <!-- Toast -->
+    <div class="toast" id="customToast" role="alert" aria-live="assertive" aria-atomic="true">
+      <div class="toast-header">
+        <!-- Header Content -->
+      </div>
+      <div class="toast-body" id="toast-message-content">
+        <!-- Сообщение будет сюда -->
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Help Modal -->
+<div class="modal fade" id="helpModal" tabindex="-1" aria-labelledby="helpModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h5 class="modal-title" id="helpModalLabel">Help</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <h5>Instructions for Using the "Core Description" Module</h5>
+        <p>This module allows you to analyze the textual description of a core to extract key information. However, it is important to consider the following limitations:</p>
+        <ul>
+          <li><strong>Word Count Limit:</strong> For users without the PRO version of the module, there is a limit of 25 words per request.</li>
+          <li><strong>Language Limitations:</strong> The text processing algorithm is optimized for working with texts in English.</li>
+        </ul>
+        <p>Ensure that your description meets these requirements for optimal processing and data analysis.</p>
+      </div>
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+

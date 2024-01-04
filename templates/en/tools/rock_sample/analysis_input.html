@@ -1,0 +1,37 @@
+<!-- tools/rock_sample/analysis_input.html -->
+<div class="col-md-6" data-core-analysis-url="{% url 'frontend:core_analysis' %}">
+  <div class="mb-3 position-relative">
+    <textarea class="form-control" id="core-description" rows="5"
+              placeholder="Enter core description here..."></textarea>
+
+      <!-- Tooltip Icon -->
+    <i class="fas fa-question-circle position-absolute" style="top: 10px; right: 20px; cursor: pointer;" data-bs-toggle="modal" data-bs-target="#helpModal"></i>
+  </div>
+
+    <!-- Dropdown for model selection -->
+  <div class="mb-3 d-flex justify-content-between align-items-center">
+    <select class="form-select" id="model-selection" style="width: auto; min-width: 200px;">
+      <option value="" disabled selected hidden>Select processing model</option>
+      <option value="standard">Standard</option>
+      <option value="standard_plus">Standard+</option>
+      <!-- Additional mock data -->
+    </select>
+    <button class="btn btn-outline-primary ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Available in PRO version">Upload file</button>
+
+  </div>
+    <div data-random-description-url="{% url 'app_db:random-core-description' %}">
+    <button class="btn btn-outline-secondary btn-sm mt-2 float-end mb-2" id="random-description-btn">
+        <small>Random description</small>
+    </button>
+    </div>
+
+    <div>
+        <button class="btn btn-primary w-100"
+                onclick="handleSubmit()"
+                {% if button_disabled %}disabled style="background-color: grey; border-color: grey;"{% endif %}>
+            {{ button_text }}
+        </button>
+    </div>
+</div>
+
+

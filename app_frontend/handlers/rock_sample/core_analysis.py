@@ -63,7 +63,7 @@ class CoreAnalysis:
     def _validation(self, data=None):
         # Проверяем, не исчерпан ли лимит доступных запросов
         if self.available_requests <= 0:
-            raise ValueError("Исчерпан лимит доступных запросов.")
+            raise ValueError("Limit of available requests exhausted.")  # Исчерпан лимит доступных запросов.
 
         if data is None:
             data = json.loads(self.request.body)
@@ -72,28 +72,33 @@ class CoreAnalysis:
             if isinstance(data.get("description"), str):
                 core_description = data.get("description")
                 if core_description == "":
-                    raise ValueError("Поле с описанием керна пустое...")
+                    raise ValueError("The core description field is empty...")  # Поле с описанием керна пустое...
 
                 # Проверка количества слов для пользователей с неопределенной группой
                 if len(core_description.split()) > 25 and self.user_group == USER_UNDEFINED:
-                    raise ValueError("Большие запросы доступны только в PRO версии. \n"
-                                     "Ограничьте запрос до 25 слов.")
+                    raise ValueError("Large requests are only available in the PRO version. \n"
+                                     "Limit your request to 25 words.")
+                    # raise ValueError("Большие запросы доступны только в PRO версии. \n"
+                    #                  "Ограничьте запрос до 25 слов.")
 
                 # Общая проверка количества слов для всех пользователей
                 if len(core_description.split()) > 300:
-                    raise ValueError("Запрос не должен превышать 300 слов.")
+                    raise ValueError("Request should not exceed 300 words.")
+                    # raise ValueError("Запрос не должен превышать 300 слов.")
 
                 # Проверка языка
                 language = self._validate_language(core_description)
                 if language == "Other":
-                    raise ValueError("Обрабатываю только русский или английский язык.")
+                    raise ValueError("I only process Russian or English language.")
+                    # raise ValueError("Обрабатываю только русский или английский язык.")
 
                 self.core_description = core_description
 
             if isinstance(data.get("model"), str):
                 model = data.get("model")
                 if model == "":
-                    raise ValueError("Необходимо выбрать модель обработки...")
+                    raise ValueError("A processing model must be selected...")
+                    # raise ValueError("Необходимо выбрать модель обработки...")
                 self.model = model
 
     def _update_user_action(self):
@@ -125,7 +130,8 @@ class CoreAnalysis:
         # Валидация входных данных
         self._validation()
         response_data = {}
-        message_text = "Упс, что-то пошло не так..."
+        # message_text = "Упс, что-то пошло не так..."
+        message_text = "Oops, something went wrong..."
         status_code = "501"
 
         # Проверяем в БД нет ли такого self.core_description
@@ -160,7 +166,8 @@ class CoreAnalysis:
         if not filtered_response_data == {}:
             # Обновление данных пользователя
             self._update_user_action()
-            message_text = "Анализ выполнен"
+            # message_text = "Анализ выполнен"
+            message_text = "Analysis completed"
             status_code = "200"
 
         return {

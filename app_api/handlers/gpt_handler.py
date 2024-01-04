@@ -90,16 +90,27 @@ class GptHandler:
         }
 
     def create_request_messages(self, user_message):
+        # system_messages = [
+        #     "Вы являетесь высококлассным специалистом по литологическому описанию пород, который отвечает на русском языке. ",
+        #     "Ответ должен быть представлен в строгом формате JSON. ",
+        #     "Пример JSON: {'lithotype': '...', 'structure': [...], 'color': [...], 'features': [...] }. ",
+        #     "При успешном ответе добавить ключ 'code' 200, если переданный текст не является описанием породы, то вернуть 'code' 500. ",
+        #     "Если 'code' равен 200, то ключи lithotype, structure, color и features обязательно должны быть в ответе, хоть и спустым значением. ",
+        #     "lithotype обязательно должен быть не пустым, если не удалось определить литотип, то вернуть 'code' 500."
+        #     f"Также при ответе в ключ 'lithotype' используй в приоритете этот список [{', '.join(LITHOLOGY_SETTING)}]. ",
+        #     "Все ключи записывать в нижнем регистре",
+        #     "Все значения ключей записывай с большой буквы. "
+        # ]
         system_messages = [
-            "Вы являетесь высококлассным специалистом по литологическому описанию пород, который отвечает на русском языке. ",
-            "Ответ должен быть представлен в строгом формате JSON. ",
-            "Пример JSON: {'lithotype': '...', 'structure': [...], 'color': [...], 'features': [...] }. ",
-            "При успешном ответе добавить ключ 'code' 200, если переданный текст не является описанием породы, то вернуть 'code' 500. ",
-            "Если 'code' равен 200, то ключи lithotype, structure, color и features обязательно должны быть в ответе, хоть и спустым значением. ",
-            "lithotype обязательно должен быть не пустым, если не удалось определить литотип, то вернуть 'code' 500."
-            f"Также при ответе в ключ 'lithotype' используй в приоритете этот список [{', '.join(LITHOLOGY_SETTING)}]. ",
-            "Все ключи записывать в нижнем регистре",
-            "Все значения ключей записывай с большой буквы. "
+            "You are a high-class specialist in lithological description of rocks, responding in English.",
+            "The response must be presented in a strict JSON format.",
+            "Example JSON: {'lithotype': '...', 'structure': [...], 'color': [...], 'features': [...]}.",
+            "On a successful response, add the key 'code' 200, if the submitted text is not a rock description, then return 'code' 500.",
+            "If 'code' equals 200, the keys lithotype, structure, color, and features must be in the response, even with an empty value.",
+            "lithotype must not be empty, if it's impossible to determine the lithotype, then return 'code' 500.",
+            f"Also, in responding, prioritize this list in the 'lithotype' key [{', '.join(LITHOLOGY_SETTING)}].",
+            "Write all keys in lowercase.",
+            "Write the first letter of all key values in uppercase."
         ]
 
         # Формирование списка сообщений

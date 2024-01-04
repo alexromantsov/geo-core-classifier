@@ -3,7 +3,7 @@
 document.addEventListener('DOMContentLoaded', function() {
   var resultsContainer = document.querySelector('.results-content');
   if (resultsContainer) {
-    resultsContainer.innerHTML = '<p>Литотип: ...</p><p>Цвет: ...</p>';
+    resultsContainer.innerHTML = '<p>Lithotype: ...</p><p>Color: ...</p>';
   }
 
   var modelSelectElement = document.querySelector('.form-select');
@@ -14,15 +14,15 @@ document.addEventListener('DOMContentLoaded', function() {
       var resultsHtml = '';
 
       if (selectedModel === 'standard') {
-        resultsHtml = '<p>Литотип: ...</p><p>Цвет: ...</p>';
+        resultsHtml = '<p>Lithotype: ...</p><p>Color: ...</p>';
       } else if (selectedModel === 'standard_plus') {
-        resultsHtml = '<p>Литотип: ...</p><p>Цвет: ...</p><p>Структура: ...</p><p>Особенности: ...</p>';
+        resultsHtml = '<p>Lithotype: ...</p><p>Color: ...</p><p>Structure: ...</p><p>Features: ...</p>';
       }
 
       if (resultsContainer) {
         resultsContainer.innerHTML = resultsHtml;
       }
-      // Делаем блок доступным
+      // Making the block available
       // var cardElement = document.querySelector('.card');
       // if (cardElement) {
       //   cardElement.classList.remove('unavailable');
