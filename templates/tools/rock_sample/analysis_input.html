@@ -19,6 +19,12 @@
     <button class="btn btn-outline-primary ms-2" data-bs-toggle="tooltip" data-bs-placement="top" title="Доступно в PRO версии">Загрузить файл</button>
 
   </div>
+    <div data-random-description-url="{% url 'app_db:random-core-description' %}">
+    <button class="btn btn-outline-secondary btn-sm mt-2 float-end mb-2" id="random-description-btn">
+        <small>Случайное описание</small>
+    </button>
+    </div>
+
     <div>
         <button class="btn btn-primary w-100"
                 onclick="handleSubmit()"

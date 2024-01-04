@@ -41,3 +41,8 @@ python manage.py migrate
 ```bash
 python manage.py createsuperuser
 ```
+
+### Сгенерировать тестовые описания керна
+```bash
+python manage.py generate_core_descriptions
+```
