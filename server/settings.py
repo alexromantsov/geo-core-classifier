@@ -84,12 +84,36 @@ WSGI_APPLICATION = 'server.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'geocoreclassifier',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '185.4.74.136',
+        'PORT': '5433',
     }
 }
+
+# Для запуска в контейнере
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'geocoreclassifier',
+#         'USER': 'postgres',
+#         'PASSWORD': 'postgres',
+#         'HOST': 'postgres',  # Имя сервиса PostgreSQL в docker-compose.yml
+#         'PORT': '5432',      # Порт, на который контейнер принимает внешние подключения
+#     }
+# }
+
 
 
 # Password validation

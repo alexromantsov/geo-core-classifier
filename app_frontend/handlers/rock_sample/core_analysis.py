@@ -25,9 +25,10 @@ class MockHttpRequest(HttpRequest):
         return self._body
 
 
-
 class CoreAnalysis:
     def __init__(self, request):
+        self.core_description = None
+        self.model = None
         self.request = request
         self.user_ip = self.get_client_ip()
         self.user_action = UserActionHandler.get_or_create_action_by_ip(self.user_ip)
@@ -35,8 +36,6 @@ class CoreAnalysis:
         self.user_group = self.user_action.group
         self.available_requests = self.user_action.available_requests
         self.total_clicks = self.user_action.total_clicks
-        self.core_description: str
-        self.model: str
 
     def _validate_language(self, text):
         """Определяет язык текста и проверяет, что он на русском или английском."""
@@ -61,8 +60,14 @@ class CoreAnalysis:
         else:
             return "Other"
 
-    def _validation(self):
-        data = json.loads(self.request.body)
+    def _validation(self, data=None):
+        # Проверяем, не исчерпан ли лимит доступных запросов
+        if self.available_requests <= 0:
+            raise ValueError("Исчерпан лимит доступных запросов.")
+
+        if data is None:
+            data = json.loads(self.request.body)
+
         if isinstance(data, dict):
             if isinstance(data.get("description"), str):
                 core_description = data.get("description")
@@ -149,8 +154,6 @@ class CoreAnalysis:
 
             response_data = response_gpt.get("data")
 
-
-
         # Фильтрация response_data
         filtered_response_data = self._filter_response_data(response_data)
 
@@ -168,6 +171,54 @@ class CoreAnalysis:
                 "response_data": filtered_response_data
             }
         }
+
+    def run_excel_file(self, core_description_excel):
+        """Обработка для Excel файла"""
+        # TODO: Нужно сделать проверку доступа у IP PRO версия то MODEL_STANDARD_PLUS иначе обычная модель
+        self.model = MODEL_STANDARD_PLUS
+        data_excel = {
+            "description": core_description_excel,
+            "model": self.model
+        }
+
+        # Валидация входных данных
+        self._validation(data_excel)
+
+        # Проверяем в БД нет ли такого self.core_description
+        existing_response = CoreResponseHandler.get_response_by_description(self.core_description)
+        if existing_response:
+            response_gpt = existing_response.response_data
+            response_data = response_gpt.get("data")
+
+        else:
+            # Создание псевдо-запроса
+            body_data = json.dumps({
+                "description": self.core_description,
+                "model": self.model
+            })
+
+            pseudo_request = MockHttpRequest('POST', body_data)
+
+            # Использование GptHandler с псевдо-запросом
+            gpt_handler = GptHandler(pseudo_request)
+            response_gpt = asyncio.run(gpt_handler.run())
+
+            # Сохраняем запрос в БД
+            CoreResponseHandler.create_response(
+                self.core_description,
+                response_gpt
+            )
+
+            response_data = response_gpt.get("data")
+
+        # Фильтрация response_data
+        filtered_response_data = self._filter_response_data(response_data)
+
+        if not filtered_response_data == {}:
+            # Обновление данных пользователя
+            self._update_user_action()
+
+        return filtered_response_data
 
     def get_client_ip(self):
         x_forwarded_for = self.request.META.get('HTTP_X_FORWARDED_FOR')

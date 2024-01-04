@@ -112,6 +112,37 @@ function handleSubmit() {
   });
 }
 
+document.getElementById("random-description-btn").addEventListener("click", function() {
+  const containerDiv = document.querySelector('div[data-random-description-url]');
+  const randomDescriptionUrl = containerDiv.getAttribute('data-random-description-url');
+
+  // Пример: установка желаемого языка
+  const languageData = {
+    language: 'ru' // или любой другой язык по вашему выбору
+  };
+
+  fetch(randomDescriptionUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(languageData)
+  })
+  .then(response => {
+    if (response.ok) {
+      return response.json();
+    } else {
+      throw new Error('Не удалось получить описание');
+    }
+  })
+  .then(data => {
+    document.getElementById("core-description").value = data.description;
+  })
+  .catch(error => {
+    console.error('Ошибка:', error);
+  });
+});
+
 
 document.addEventListener("DOMContentLoaded", function() {
   var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
