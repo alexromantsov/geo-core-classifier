@@ -97,11 +97,11 @@ DATABASES = {
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'geocoreclassifier',
+#         'NAME': 'geocoreclassifier',  # Имя базы данных
 #         'USER': 'postgres',
 #         'PASSWORD': 'postgres',
-#         'HOST': 'postgres',  # Имя сервиса PostgreSQL в docker-compose.yml
-#         'PORT': '5432',      # Порт, на который контейнер принимает внешние подключения
+#         'HOST': 'postgres_docker_postgres_1',  # Имя контейнера с БД
+#         'PORT': '5432',               # Стандартный порт PostgreSQL
 #     }
 # }
 

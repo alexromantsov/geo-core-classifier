@@ -46,3 +46,18 @@ python manage.py createsuperuser
 ```bash
 python manage.py generate_core_descriptions
 ```
+
+## Сборка образа Docker 
+```bash
+docker build -t romanrsov/geo-core-classifier:latest .
+```
+
+### Загрузка образа Docker
+```
+docker pull romanrsov/geo-core-classifier:latest
+```
+
+### Запуск контейнера
+```
+docker run -d -p 8008:8000 --name geo-core-classifier romanrsov/geo-core-classifier:latest
+```
