@@ -61,3 +61,39 @@ docker pull romanrsov/geo-core-classifier:latest
 ```
 docker run -d -p 8008:8000 --name geo-core-classifier romanrsov/geo-core-classifier:latest
 ```
+
+## Настройка nginx
+### Проверьте версию Nginx:
+```
+nginx -v
+```
+
+```
+sudo nano /etc/nginx/nginx.conf
+```
+
+### Добавить конфигурацию сервера в секцию http файла nginx.conf:
+```
+server {
+    listen 80;
+    server_name 185.4.74.136;
+
+    location / {
+        proxy_pass http://185.4.74.136:8008;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+    }
+}
+```
+### Проверьте конфигурацию Nginx:
+```
+nginx -t
+```
+
+### Если проверка прошла успешно, перезапустите Nginx:
+```
+systemctl restart nginx
+```
